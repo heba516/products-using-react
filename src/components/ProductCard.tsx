@@ -1,28 +1,34 @@
 // interface IProps {}
+import { Products } from "../interfaces";
 import Image from "./Image";
 import Button from "./ui/Button";
-const ProductCard = () => {
+
+interface Props {
+  product: Products;
+}
+const ProductCard = ({ product }: Props) => {
+  const { imgUrl, title, description, price, colors, category } = product;
   return (
     <div className="flex flex-col border rounded-md p-3">
-      <Image
-        src="https://upload.wikimedia.org/wikipedia/en/9/9e/Lil_Nas_X_Satan_Shoes.png"
-        alt="product"
-        className="rounded-md mb-2"
-      />
+      <Image src={imgUrl} alt="product" className="rounded-md mb-2 h-48" />
 
-      <h3>Nike</h3>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      <h3>{title}</h3>
+      <p>{description}</p>
 
       <div className="flex items-center space-x-2 my-4">
-        <span className="w-4 h-4 rounded-full cursor-pointer bg-blue-800"></span>
-        <span className="w-4 h-4 rounded-full cursor-pointer bg-red-600"></span>
-        <span className="w-4 h-4 rounded-full cursor-pointer bg-green-600"></span>
+        {colors.map((color) => (
+          <span
+            key={color}
+            className={`w-4 h-4 rounded-full cursor-pointer bg-${color}`}
+          ></span>
+        ))}
       </div>
 
+      <span>${price}</span>
       <div className="flex items-center justify-between">
-        <span>$500.000</span>
+        <h4>{category.name}</h4>
         <Image
-          src="https://upload.wikimedia.org/wikipedia/en/9/9e/Lil_Nas_X_Satan_Shoes.png"
+          src={category.imgUrl}
           alt="product"
           className="w-10 h-10 rounded-full object-center"
         />
