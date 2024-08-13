@@ -1,5 +1,6 @@
 // interface IProps {}
 import { Products } from "../interfaces";
+import { txtSlicer } from "../utils/functions";
 import Image from "./Image";
 import Button from "./ui/Button";
 
@@ -13,7 +14,7 @@ const ProductCard = ({ product }: Props) => {
       <Image src={imgUrl} alt="product" className="rounded-md mb-2 h-48" />
 
       <h3>{title}</h3>
-      <p>{description}</p>
+      <p>{txtSlicer(description, 50)}</p>
 
       <div className="flex items-center space-x-2 my-4">
         {colors.map((color) => (
