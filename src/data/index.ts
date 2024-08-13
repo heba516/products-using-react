@@ -1,5 +1,5 @@
 import {v4 as uuid} from "uuid";
-import { Products } from "../interfaces";
+import { Input, Products } from "../interfaces";
 
 export const productList: Products[] = [
     {
@@ -73,5 +73,33 @@ export const productList: Products[] = [
             name: "Shoses",
             imgUrl:"https://upload.wikimedia.org/wikipedia/en/9/9e/Lil_Nas_X_Satan_Shoes.png"
         }
+    },
+]
+
+
+export const formInputs: Input[] = [
+    {
+        id: "title",
+        name: "title",
+        label: "Product Title",
+        type: "text",
+    },
+    {
+        id: "description",
+        name: "description",
+        label: "Product Description",
+        type: "text"
+    },
+    {
+        id: "img",
+        name: "img",
+        label: "Product Image Url",
+        type: "text"
+    },
+    {
+        id: "price",
+        name: "price",
+        label: "Product Price",
+        type: "text"
     },
 ]
