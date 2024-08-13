@@ -10,8 +10,12 @@ interface Props {
 const ProductCard = ({ product }: Props) => {
   const { imgUrl, title, description, price, colors, category } = product;
   return (
-    <div className="flex flex-col border rounded-md p-3">
-      <Image src={imgUrl} alt="product" className="rounded-md mb-2 h-48" />
+    <div className="m-auto max-w-sm md:max-w-lg flex flex-col border rounded-md p-3">
+      <Image
+        src={imgUrl}
+        alt="product"
+        className="rounded-md mb-2 h-52 lg:object-cover"
+      />
 
       <h3>{title}</h3>
       <p>{txtSlicer(description, 50)}</p>
