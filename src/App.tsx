@@ -5,6 +5,7 @@ import { formInputs, productList } from "./data";
 import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
 import { Products } from "./interfaces";
+import { productValidation } from "./validation";
 
 function App() {
   const defaultProduct = {
@@ -29,14 +30,20 @@ function App() {
     closeModal();
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(productValues);
-  };
-
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setProductValues({ ...productValues, [name]: value });
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const errors = productValidation({
+      title: productValues.title,
+      description: productValues.description,
+      imgUrl: productValues.imgUrl,
+      price: productValues.price,
+    });
+    console.log(errors);
   };
 
   /* Renders */
