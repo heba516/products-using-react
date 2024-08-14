@@ -6,6 +6,7 @@ import Button from "./components/ui/Button";
 import Input from "./components/ui/Input";
 import { Products } from "./interfaces";
 import { productValidation } from "./validation";
+import ErrMsg from "./components/ErrMsg";
 
 function App() {
   const defaultProduct = {
@@ -20,30 +21,59 @@ function App() {
     },
   };
   const [isOpen, setIsOpen] = useState(false);
+  const [errorsMsg, setErrors] = useState({
+    title: "",
+    description: "",
+    imgUrl: "",
+    price: "",
+  });
   const [productValues, setProductValues] = useState<Products>(defaultProduct);
 
   /** Handlers */
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
-  const handleCancle = () => {
+
+  const handleCancel = () => {
     setProductValues(defaultProduct);
+    setErrors({
+      title: "",
+      description: "",
+      imgUrl: "",
+      price: "",
+    });
     closeModal();
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setProductValues({ ...productValues, [name]: value });
+    setErrors({
+      ...errorsMsg,
+      [name]: "",
+    });
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const { title, description, imgUrl, price } = productValues;
     e.preventDefault();
     const errors = productValidation({
-      title: productValues.title,
-      description: productValues.description,
-      imgUrl: productValues.imgUrl,
-      price: productValues.price,
+      title,
+      description,
+      imgUrl,
+      price,
     });
-    console.log(errors);
+
+    const hasError =
+      Object.values(errors).some((val) => val === "") &&
+      Object.values(errors).every((val) => val === "");
+
+    if (!hasError) {
+      setErrors(errors);
+      console.log({ errorsMsg });
+      return;
+    }
+
+    console.log("no error");
   };
 
   /* Renders */
@@ -63,6 +93,7 @@ function App() {
         value={productValues[input.name]}
         onChange={onChange}
       />
+      <ErrMsg msg={errorsMsg[input.name]} />
     </div>
   ));
 
@@ -80,8 +111,9 @@ function App() {
           <div className="flex items-center space-x-3">
             <Button className="bg-blue-800 hover:bg-blue-900">Submit</Button>
             <Button
+              type="button"
               className="bg-gray-400 hover:bg-gray-500"
-              onClick={handleCancle}
+              onClick={handleCancel}
             >
               Cancel
             </Button>
