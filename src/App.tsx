@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import ProductCard from "./components/ProductCard";
 import Modal from "./components/ui/Modal";
 import { formInputs, productList } from "./data";
@@ -7,8 +7,7 @@ import Input from "./components/ui/Input";
 import { Products } from "./interfaces";
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [productValues, setProductValues] = useState<Products>({
+  const defaultProduct = {
     title: "",
     description: "",
     imgUrl: "",
@@ -18,16 +17,29 @@ function App() {
       name: "",
       imgUrl: "",
     },
-  });
+  };
+  const [isOpen, setIsOpen] = useState(false);
+  const [productValues, setProductValues] = useState<Products>(defaultProduct);
 
+  /** Handlers */
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
+  const handleCancle = () => {
+    setProductValues(defaultProduct);
+    closeModal();
+  };
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(productValues);
+  };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = e.target;
     setProductValues({ ...productValues, [name]: value });
   };
 
+  /* Renders */
   const products = productList.map((product) => (
     <ProductCard key={product.id} product={product} />
   ));
@@ -56,13 +68,13 @@ function App() {
         {products}
       </div>
       <Modal isOpen={isOpen} closeModal={closeModal} title="ADD NEW PRODUCT">
-        <form className="space-y-3">
+        <form className="space-y-3" onSubmit={handleSubmit}>
           {formInputsList}
           <div className="flex items-center space-x-3">
             <Button className="bg-blue-800 hover:bg-blue-900">Submit</Button>
             <Button
               className="bg-gray-400 hover:bg-gray-500"
-              onClick={closeModal}
+              onClick={handleCancle}
             >
               Cancel
             </Button>
