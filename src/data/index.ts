@@ -92,7 +92,7 @@ export const formInputs: Input[] = [
     },
     {
         id: "img",
-        name: "img",
+        name: "imgUrl",
         label: "Product Image Url",
         type: "text"
     },
