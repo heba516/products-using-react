@@ -1,14 +1,18 @@
-// interface IProps {}
 import { Products } from "../interfaces";
 import { txtSlicer } from "../utils/functions";
 import Image from "./Image";
 import Button from "./ui/Button";
+import CircleColor from "./ui/CircleColor";
 
 interface Props {
   product: Products;
 }
 const ProductCard = ({ product }: Props) => {
   const { imgUrl, title, description, price, colors, category } = product;
+
+  const colorsList = colors.map((color) => (
+    <CircleColor bg={color} key={`k-${color}`} />
+  ));
   return (
     <div className="m-auto max-w-sm md:max-w-lg flex flex-col border rounded-md p-3">
       <Image
@@ -23,7 +27,7 @@ const ProductCard = ({ product }: Props) => {
       <div className="flex items-center space-x-2 my-4">
         {colors.map((color) => (
           <span
-            key={color}
+            key={`${color}1`}
             className={`w-4 h-4 rounded-full cursor-pointer bg-${color}`}
           ></span>
         ))}
@@ -37,6 +41,10 @@ const ProductCard = ({ product }: Props) => {
           alt="product"
           className="w-10 h-10 rounded-full object-center"
         />
+      </div>
+
+      <div className="flex flex-wrap items-center space-x-2 my-4">
+        {colorsList}
       </div>
 
       <div className="flex items-center space-x-2 mt-4">

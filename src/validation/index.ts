@@ -12,7 +12,7 @@ export const productValidation = (product: {title: string, description: string, 
         price: "",
     }
 
-    const imgRegEx = /^(ftp|http|https):\/\/[^."]+$/.test(product.imgUrl);
+    const imgRegEx = /^(ftp|http|https):\/\/[^ "]+$/.test(product.imgUrl);
     if(!product.title.trim() || product.title.length <= 3 || product.title.length >50) {
         errors.title = "Product title must be between 4 and 50 characters";
     }

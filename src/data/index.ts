@@ -103,3 +103,5 @@ export const formInputs: Input[] = [
         type: "text"
     },
 ]
+
+export const colors = ["#ff00b1","#2563EB","#84D2C5","#A31ACB", "#3C2A21", "#1F8A70", "#ff9441", "#FF0032", "#ffafe6", "#e762ff"];
