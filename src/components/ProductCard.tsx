@@ -14,24 +14,15 @@ const ProductCard = ({ product }: Props) => {
     <CircleColor bg={color} key={`k-${color}`} />
   ));
   return (
-    <div className="m-auto max-w-sm md:max-w-lg flex flex-col border rounded-md p-3">
+    <div className="h-[486px] m-auto max-w-sm md:max-w-lg space-y-2 flex flex-col border rounded-md p-3">
       <Image
         src={imgUrl}
         alt="product"
         className="rounded-md mb-2 h-52 lg:object-cover"
       />
 
-      <h3>{title}</h3>
-      <p>{txtSlicer(description, 50)}</p>
-
-      <div className="flex items-center space-x-2 my-4">
-        {colors.map((color) => (
-          <span
-            key={`${color}1`}
-            className={`w-4 h-4 rounded-full cursor-pointer bg-${color}`}
-          ></span>
-        ))}
-      </div>
+      <h3 className="font-semibold">{title}</h3>
+      <p className="h-12">{txtSlicer(description, 50)}</p>
 
       <span>${price}</span>
       <div className="flex items-center justify-between">

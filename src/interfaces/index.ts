@@ -17,3 +17,9 @@ export interface Input {
     label: string;
     type: string;
 }
+
+export interface Category {
+    id: string;
+    name: string;
+    imgUrl: string;
+}

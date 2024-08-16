@@ -1,5 +1,5 @@
 import {v4 as uuid} from "uuid";
-import { Input, Products } from "../interfaces";
+import { Category, Input, Products } from "../interfaces";
 
 export const productList: Products[] = [
     {
@@ -105,3 +105,25 @@ export const formInputs: Input[] = [
 ]
 
 export const colors = ["#ff00b1","#2563EB","#84D2C5","#A31ACB", "#3C2A21", "#1F8A70", "#ff9441", "#FF0032", "#ffafe6", "#e762ff"];
+
+
+export const categories: Category[] = [
+  {
+    id: uuid(),
+    name: "Nike",
+    imgUrl:
+      "https://upload.wikimedia.org/wikipedia/en/9/9e/Lil_Nas_X_Satan_Shoes.png",
+  },
+  {
+    id: uuid(),
+    name: "Adidas",
+    imgUrl:
+      "https://assets.adidas.com/images/w_940,f_auto,q_auto/4b0ee1fa06f64b92945fae8c01714c15_9366/GW6424_01_standard.jpg",
+  },
+  {
+    id: uuid(),
+    name: "Kalenji",
+    imgUrl:
+      "https://contents.mediadecathlon.com/p2393865/59e9499e49d170903fb3c71ddaf67c3a/p2393865.jpg?format=auto&quality=70&f=2520x0",
+  },
+];
