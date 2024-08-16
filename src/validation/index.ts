@@ -4,12 +4,13 @@
  * @returns errors object
  */
 
-export const productValidation = (product: {title: string, description: string, imgUrl: string, price: string})=> {
-    const errors: {title: string, description: string, imgUrl: string, price: string}= {
+export const productValidation = (product: {title: string, description: string, imgUrl: string, price: string, colors: string[]})=> {
+    const errors: {title: string, description: string, imgUrl: string, price: string, colors: string}= {
         title: "",
         description: "",
         imgUrl: "",
         price: "",
+        colors: "",
     }
 
     const imgRegEx = /^(ftp|http|https):\/\/[^ "]+$/.test(product.imgUrl);
@@ -26,6 +27,10 @@ export const productValidation = (product: {title: string, description: string, 
 
     if(!product.price.trim() || isNaN(Number(product.price))) {
         errors.price = "Not valid price";
+    }
+
+    if(product.colors.length === 0) {
+        errors.colors = "Choose Color";
     }
     return errors;
 }

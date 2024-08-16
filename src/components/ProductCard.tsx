@@ -25,6 +25,9 @@ const ProductCard = ({ product }: Props) => {
       <p className="h-12">{txtSlicer(description, 50)}</p>
 
       <span>${price}</span>
+
+      <div className="flex flex-wrap items-center space-x-2">{colorsList}</div>
+
       <div className="flex items-center justify-between">
         <h4>{category.name}</h4>
         <Image
@@ -34,11 +37,7 @@ const ProductCard = ({ product }: Props) => {
         />
       </div>
 
-      <div className="flex flex-wrap items-center space-x-2 my-4">
-        {colorsList}
-      </div>
-
-      <div className="flex items-center space-x-2 mt-4">
+      <div className="flex items-center space-x-2">
         <Button
           width="w-full"
           onClick={() => console.log("Delete")}

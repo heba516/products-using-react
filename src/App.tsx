@@ -1,14 +1,14 @@
+import { v4 as uuid } from "uuid";
 import { ChangeEvent, FormEvent, useState } from "react";
-import ProductCard from "./components/ProductCard";
-import Modal from "./components/ui/Modal";
 import { formInputs, productList, colors, categories } from "./data";
-import Button from "./components/ui/Button";
-import Input from "./components/ui/Input";
 import { Products } from "./interfaces";
 import { productValidation } from "./validation";
+import ProductCard from "./components/ProductCard";
+import Modal from "./components/ui/Modal";
+import Button from "./components/ui/Button";
+import Input from "./components/ui/Input";
 import ErrMsg from "./components/ErrMsg";
 import CircleColor from "./components/ui/CircleColor";
-import { v4 as uuid } from "uuid";
 import SelectMenu from "./components/ui/selectMenu";
 
 function App() {
@@ -31,6 +31,7 @@ function App() {
     description: "",
     imgUrl: "",
     price: "",
+    colors: "",
   });
   const [tempColors, setTempColors] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
@@ -48,6 +49,7 @@ function App() {
       description: "",
       imgUrl: "",
       price: "",
+      colors: "",
     });
     setTempColors([]);
     closeModal();
@@ -63,13 +65,14 @@ function App() {
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    const { title, description, imgUrl, price } = productValues;
+    const { title, description, imgUrl, price, colors } = productValues;
     e.preventDefault();
     const errors = productValidation({
       title,
       description,
       imgUrl,
       price,
+      colors,
     });
 
     const hasError =
@@ -148,7 +151,11 @@ function App() {
             setSelected={setSelectedCategory}
           />
 
-          <div className="flex flex-wrap items-center my-4">
+          <div className="space-y-1">
+            <div className="flex items-center space-x-2">{colorsList}</div>
+            {tempColors.length === 0 && <ErrMsg msg={errorsMsg.colors} />}
+          </div>
+          <div className="flex flex-wrap items-center">
             {tempColors.map((color) => (
               <span
                 key={color}
@@ -159,8 +166,6 @@ function App() {
               </span>
             ))}
           </div>
-
-          <div className="flex items-center space-x-2 my-4">{colorsList}</div>
 
           <div className="flex items-center space-x-3">
             <Button className="bg-blue-800 hover:bg-blue-900">Submit</Button>
