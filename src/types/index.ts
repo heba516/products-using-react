@@ -1,0 +1,1 @@
+export type productNameTypes = "title"|"imgUrl"|"price"|"description";

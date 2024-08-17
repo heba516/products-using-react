@@ -1,3 +1,5 @@
+import { productNameTypes } from "../types";
+
 export interface Products {
     id?: string | undefined;
     imgUrl: string;
@@ -13,7 +15,7 @@ export interface Products {
 
 export interface Input {
     id: string;
-    name: "title"|"imgUrl"|"price"|"description";
+    name: productNameTypes
     label: string;
     type: string;
 }

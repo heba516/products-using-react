@@ -6,13 +6,30 @@ import CircleColor from "./ui/CircleColor";
 
 interface Props {
   product: Products;
+  updateProduct: (product: Products) => void;
+  openEditModal: () => void;
+  index: number;
+  setIndex: (indx: number) => void;
 }
-const ProductCard = ({ product }: Props) => {
+const ProductCard = ({
+  product,
+  updateProduct,
+  openEditModal,
+  index,
+  setIndex,
+}: Props) => {
   const { imgUrl, title, description, price, colors, category } = product;
 
   const colorsList = colors.map((color) => (
     <CircleColor bg={color} key={`k-${color}`} />
   ));
+
+  const handleEdit = () => {
+    openEditModal();
+    updateProduct(product);
+    setIndex(index);
+  };
+
   return (
     <div className="h-[486px] m-auto max-w-sm md:max-w-lg space-y-2 flex flex-col border rounded-md p-3">
       <Image
@@ -45,11 +62,7 @@ const ProductCard = ({ product }: Props) => {
         >
           DELETE
         </Button>
-        <Button
-          width="w-full"
-          onClick={() => console.log("Edit")}
-          className="bg-blue-800"
-        >
+        <Button width="w-full" className="bg-blue-800" onClick={handleEdit}>
           EDIT
         </Button>
       </div>
