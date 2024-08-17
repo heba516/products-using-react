@@ -28,6 +28,7 @@ function App() {
   const [products, setProducts] = useState<Products[]>(productList);
   const [productValues, setProductValues] = useState<Products>(defaultProduct);
   const [isOpen, setIsOpen] = useState(false);
+  const [removeIsOpen, setRemoveIsOpen] = useState(false);
   const [editIsOpen, setEditIsOpen] = useState(false);
   const [tempColors, setTempColors] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
@@ -45,6 +46,8 @@ function App() {
   const closeModal = () => setIsOpen(false);
   const openEditModal = () => setEditIsOpen(true);
   const closeEditModal = () => setEditIsOpen(false);
+  const closeRemoveModal = () => setRemoveIsOpen(false);
+  const openRemoveModal = () => setRemoveIsOpen(true);
 
   const handleCancel = () => {
     setProductValues(defaultProduct);
@@ -158,6 +161,18 @@ function App() {
     closeEditModal();
   };
 
+  // Delete Handlers
+  const onRemoveProduct = () => {
+    const filterd = products.filter(
+      (product) => product.id !== editedProduct.id
+    );
+    setProducts(filterd);
+    closeRemoveModal();
+  };
+  const onCancelRemove = () => {
+    closeRemoveModal();
+  };
+
   /* Renders */
   const renderProductCards = products.map((product, index) => (
     <ProductCard
@@ -165,6 +180,7 @@ function App() {
       product={product}
       updateProduct={setEditedProduct}
       openEditModal={openEditModal}
+      openRemoveModal={openRemoveModal}
       index={index}
       setIndex={setProductIndex}
     />
@@ -293,8 +309,10 @@ function App() {
           {renderEditInputs("imgUrl", "Product Image Url", "imgUrl")}
           {renderEditInputs("price", "Product Price", "price")}
           <SelectMenu
-            selected={selectedCategory}
-            setSelected={setSelectedCategory}
+            selected={editedProduct.category}
+            setSelected={(value) =>
+              setEditedProduct({ ...editedProduct, category: value })
+            }
           />
 
           <div className="space-y-1">
@@ -312,8 +330,6 @@ function App() {
             ))}
           </div>
 
-          {/* <span>{tempColors.concat(editedProduct.colors)}</span> */}
-
           <div className="flex items-center space-x-3">
             <Button className="bg-blue-800 hover:bg-blue-900">Submit</Button>
             <Button
@@ -325,6 +341,34 @@ function App() {
             </Button>
           </div>
         </form>
+      </Modal>
+
+      {/* Delete Modal */}
+      <Modal
+        isOpen={removeIsOpen}
+        closeModal={closeRemoveModal}
+        title="Are You Sure You Want to Remove This Product?"
+      >
+        <p>
+          Deleting this product will remove it permanently from your inventory.
+          Any associated data, sales history, and other related information will
+          also be deleted. Please make sure this is the intended action.
+        </p>
+        <div className="flex space-x-2 mt-3">
+          <Button
+            className="bg-red-600  hover:bg-red-700"
+            onClick={onRemoveProduct}
+          >
+            Remove
+          </Button>
+          <Button
+            className="bg-gray-400  hover:bg-gray-500"
+            onClick={onCancelRemove}
+            type="button"
+          >
+            CANCEL
+          </Button>
+        </div>
       </Modal>
     </main>
   );

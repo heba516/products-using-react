@@ -12,7 +12,7 @@ import { categories } from "../../data";
 import { Category } from "../../interfaces";
 
 interface Iprops {
-  selected: Category;
+  selected: { name: string; imgUrl: string };
   setSelected: (category: Category) => void;
 }
 

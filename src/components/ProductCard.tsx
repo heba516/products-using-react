@@ -8,6 +8,7 @@ interface Props {
   product: Products;
   updateProduct: (product: Products) => void;
   openEditModal: () => void;
+  openRemoveModal: () => void;
   index: number;
   setIndex: (indx: number) => void;
 }
@@ -15,6 +16,7 @@ const ProductCard = ({
   product,
   updateProduct,
   openEditModal,
+  openRemoveModal,
   index,
   setIndex,
 }: Props) => {
@@ -28,6 +30,11 @@ const ProductCard = ({
     openEditModal();
     updateProduct(product);
     setIndex(index);
+  };
+
+  const handleRemove = () => {
+    updateProduct(product);
+    openRemoveModal();
   };
 
   return (
@@ -55,11 +62,7 @@ const ProductCard = ({
       </div>
 
       <div className="flex items-center space-x-2">
-        <Button
-          width="w-full"
-          onClick={() => console.log("Delete")}
-          className="bg-red-600"
-        >
+        <Button width="w-full" onClick={handleRemove} className="bg-red-600">
           DELETE
         </Button>
         <Button width="w-full" className="bg-blue-800" onClick={handleEdit}>
