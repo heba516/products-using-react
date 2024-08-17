@@ -3,6 +3,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { formInputs, productList, colors, categories } from "./data";
 import { Products } from "./interfaces";
 import { productValidation } from "./validation";
+import { productNameTypes } from "./types";
 import ProductCard from "./components/ProductCard";
 import Modal from "./components/ui/Modal";
 import Button from "./components/ui/Button";
@@ -10,7 +11,7 @@ import Input from "./components/ui/Input";
 import ErrMsg from "./components/ErrMsg";
 import CircleColor from "./components/ui/CircleColor";
 import SelectMenu from "./components/ui/selectMenu";
-import { productNameTypes } from "./types";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
   const defaultProduct = {
@@ -104,6 +105,7 @@ function App() {
     setProductValues(defaultProduct);
     setTempColors([]);
     closeModal();
+    toast("Product has been added", { icon: "👏" });
   };
 
   // Edit Handlers
@@ -159,6 +161,7 @@ function App() {
     setEditedProduct(defaultProduct);
     setTempColors([]);
     closeEditModal();
+    toast("Product has been edited", { icon: "👏" });
   };
 
   // Delete Handlers
@@ -168,6 +171,7 @@ function App() {
     );
     setProducts(filterd);
     closeRemoveModal();
+    toast("Product has been deleted", { icon: "👏" });
   };
   const onCancelRemove = () => {
     closeRemoveModal();
@@ -370,6 +374,8 @@ function App() {
           </Button>
         </div>
       </Modal>
+
+      <Toaster />
     </main>
   );
 }
